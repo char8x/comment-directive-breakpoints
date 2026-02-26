@@ -1,5 +1,5 @@
 px := "pnpm exec"
-extension_name := `jq '.name' package.json`
+extension_name := `jq -r '.name' package.json`
 
 copy-wasm-to-dist:
     tsx ./script/copy-assets.ts dist
@@ -45,3 +45,4 @@ release version:
     git push origin "v{{ version }}"
     gh release create v{{ version }} ./{{ extension_name }}-v{{ version }}.vsix --generate-notes
     vsce publish --no-dependencies {{ version }}
+    echo "Please visit https://marketplace.visualstudio.com/manage"
