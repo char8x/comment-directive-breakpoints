@@ -1,0 +1,113 @@
+// See https://go.microsoft.com/fwlink/?LinkId=733558
+// for the documentation about the tasks.json format
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "terminate task",
+            "type": "shell",
+            "command": "echo ${input:terminateAll}",
+            "options": {
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": [
+                        "-c"
+                    ]
+                }
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "close": true
+            }
+        },
+        {
+            "label": "watch",
+            "dependsOn": [
+                "copy wasm assets",
+                "npm: watch:tsc",
+                "npm: watch:esbuild"
+            ],
+            "presentation": {
+                "reveal": "never"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "npm: watch:esbuild",
+            "type": "npm",
+            "script": "watch:esbuild",
+            "group": "build",
+            "problemMatcher": "$esbuild-watch",
+            "isBackground": true,
+            "presentation": {
+                "group": "watch",
+                "reveal": "never"
+            }
+        },
+        {
+            "label": "copy wasm assets",
+            "type": "shell",
+            "command": [
+                "just",
+                "copy-wasm-to-dist"
+            ],
+            "isBackground": true,
+            "presentation": {
+                "reveal": "never",
+                "focus": false,
+            }
+        },
+        {
+            "label": "npm: watch:tsc",
+            "type": "npm",
+            "script": "watch:tsc",
+            "group": "build",
+            "problemMatcher": "$tsc-watch",
+            "isBackground": true,
+            "presentation": {
+                "group": "watch",
+                "reveal": "never"
+            }
+        },
+        {
+            "type": "npm",
+            "script": "watch-tests",
+            "problemMatcher": "$tsc-watch",
+            "isBackground": true,
+            "presentation": {
+                "reveal": "never",
+                "group": "watchers"
+            },
+            "group": "build"
+        },
+        {
+            "label": "tasks: watch-tests",
+            "dependsOn": [
+                "npm: watch",
+                "npm: watch-tests"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "npm: pretest",
+            "type": "npm",
+            "script": "pretest",
+            "group": "build",
+            "presentation": {
+                "group": "build",
+            }
+        },
+    ],
+    "inputs": [
+        {
+            "id": "terminateAll",
+            "type": "command",
+            "command": "workbench.action.tasks.terminate",
+            "args": "terminateAll"
+        }
+    ]
+}

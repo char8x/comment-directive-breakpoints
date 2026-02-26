@@ -1,0 +1,10 @@
+out
+dist
+node_modules
+.vscode-test/
+*.vsix
+*.log
+.gemini
+GEMINI.md
+coverage/
+demo.js

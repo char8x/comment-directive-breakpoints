@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"module": "Node16",
+		"target": "ES2022",
+		"lib": [
+			"ES2022"
+		],
+		"sourceMap": true,
+		"rootDir": "src",
+		"skipLibCheck": true,
+		"strict": true, /* enable all strict type-checking options */
+		"strictBuiltinIteratorReturn": false, /* fix lru-cache@10.4.3 typings error */
+		"noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
+		"noFallthroughCasesInSwitch": true, /* Report errors for fallthrough cases in switch statement. */
+		"noUnusedParameters": true, /* Report errors on unused parameters. */
+	},
+	"include": [
+		"src"
+	],
+	"exclude": [
+		".vscode-test/**",
+		"node_modules/**",
+		"./test-fixture/**",
+	]
+}
